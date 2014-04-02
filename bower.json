@@ -19,7 +19,6 @@
     "tests"
   ],
   "dependencies": {
-    "openpgpjs": "https://github.com/openpgpjs/openpgpjs.git#~0.5.0",
     "polymer": "~0.2.2"
   }
 }

@@ -1,8 +1,28 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-
-
-<polymer-element name="my-element" noscript>
+<!--
+<script src="openpgp.min.js"></script>
+<script src="openpgp.worker.min.js"></script>
+ -->
+<polymer-element name="pgp-textarea" noscript>
   <template>
-    <span>Hello from <b>my-element</b>. This is my Shadow DOM.</span>
+    <button on-click="{{showRaw}}">Raw</button>
+    <button on-click="{{showArmored}}">Armored</button>
+    <textarea id="raw"></textarea>
+    <textarea id="armored" style="display: none;"></textarea>
   </template>
+  <script>
+    Polymer('pgp-textarea', {
+      ready: function() {
+        return true; // we're always ready.
+      },
+      showRaw: function (event, detail, sender) {
+        debugger
+      },
+      showArmored: function (event, detail, sender) {
+
+      }
+
+    });
+
+  </script>
 </polymer-element>
