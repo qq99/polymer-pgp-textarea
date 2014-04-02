@@ -1,7 +1,7 @@
 polymer-pgp-textarea
 ====================
 
-This is supposed to be / going to be a textarea that supports PGP
+This is supposed to be / going to be a textarea that supports PGP via [openpgpjs](https://github.com/openpgpjs/openpgpjs/)
 
 I'm playing with [Polymer](http://www.polymer-project.org/)
 
