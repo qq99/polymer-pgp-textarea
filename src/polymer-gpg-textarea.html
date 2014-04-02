@@ -1,26 +1,66 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<!--
+
 <script src="openpgp.min.js"></script>
-<script src="openpgp.worker.min.js"></script>
+<!--<script src="openpgp.worker.min.js"></script>
  -->
-<polymer-element name="pgp-textarea" noscript>
+<polymer-element name="pgp-textarea" attributes="userInput armoredOutput">
+  <style>
+    pgp-textarea textarea {
+      display: block;
+      height: 200px;
+      width: 500px;
+    }
+  </style>
   <template>
     <button on-click="{{showRaw}}">Raw</button>
     <button on-click="{{showArmored}}">Armored</button>
-    <textarea id="raw"></textarea>
-    <textarea id="armored" style="display: none;"></textarea>
+    <textarea id="textarea_raw">{{ userInput }}</textarea>
+    <textarea id="textarea_armored" style="display: none;">{{ armoredOutput }}</textarea>
+    <button on-click="{{sign}}">Sign</button>
   </template>
+  <script src="fake.keys.js"></script>
   <script>
+
+
     Polymer('pgp-textarea', {
+      keypairReady: false,
+      userInput: '',
+      armoredOutput: '',
       ready: function() {
         return true; // we're always ready.
       },
       showRaw: function (event, detail, sender) {
-        debugger
+        this.$.textarea_armored.style.display = "none";
+        this.$.textarea_raw.style.display = "block";
       },
       showArmored: function (event, detail, sender) {
+        this.$.textarea_armored.style.display = "block";
+        this.$.textarea_raw.style.display = "none";
+      },
+      sign: function (event, detail, sender) {
+        if (!this.keypairReady) {
+          this.prepareKeys(priv, pub);
+        }
+        console.log("Signing");
 
+        // TODO: use the (err, signed) -> callback and worker
+        this.armoredOutput = openpgp.signClearMessage(this.dearmored_privs.keys, this.$.textarea_raw.value).trim();
+        this.$.textarea_armored.value = this.armoredOutput;
+        this.showArmored();
+      },
+      prepareKeys: function (private_armored, public_armored) {
+        console.log("Preparing keypair");
+        this.dearmored_privs = openpgp.key.readArmored(private_armored);
+        this.dearmored_pubs = openpgp.key.readArmored(public_armored);
+
+        this.decryptPrivatekey(this.dearmored_privs);
+        this.keypairReady = true;
+      },
+      decryptPrivatekey: function (dearmored_privs) {
+        console.log("Decrypting private key");
+        decrypted = dearmored_privs.keys[0].decrypt(""); // TODO: passphrase
       }
+
 
     });
 
