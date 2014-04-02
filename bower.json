@@ -1,0 +1,25 @@
+{
+  "name": "polymer-gpg-textarea",
+  "version": "0.0.0",
+  "authors": [
+    "Anthony Cameron <ar.cameron@gmail.com>"
+  ],
+  "description": "Upgrade textareas to PGP textareas",
+  "keywords": [
+    "PGP",
+    "textarea"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "openpgpjs": "https://github.com/openpgpjs/openpgpjs.git#~0.5.0",
+    "polymer": "~0.2.2"
+  }
+}
